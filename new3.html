@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For Bbygurl</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffd6e7;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px 50px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      z-index: 1;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #e60073;
+      font-size: 28px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #e60073;
+      font-size: 17px;
+      font-weight: normal;
+    }
+
+    .valentine-img {
+      width: 140px;
+      margin: 10px auto 25px;
+      display: block;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .buttons {
+      position: relative;
+      width: 300px;
+      height: 120px;
+      margin: 0 auto;
+    }
+
+    button {
+      position: absolute;
+      padding: 12px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-block;
+      white-space: nowrap;
+      transition: box-shadow 0.2s ease;
+    }
+
+    #yes {
+      left: 20px;
+      top: 40px;
+      background: #ff4da6;
+      color: white;
+      box-shadow: 0 10px 20px rgba(255, 77, 166, 0.4);
+    }
+
+    #no {
+      top: 40px;
+      background: #ddd;
+      color: #555;
+    }
+	.choice-page {
+  min-height: 100vh;
+  background: #ffd6e7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.choice-page h1 {
+  color: #e60073;
+  margin-bottom: 30px;
+}
+
+.choices {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.choices a {
+  text-decoration: none;
+  color: #e60073;
+  font-weight: 600;
+}
+
+.choices img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+  transition: transform 0.25s ease;
+}
+
+.choices img:hover {
+  transform: scale(1.08);
+}
+
+  </style>
+  
+</head>
+
+<body>
+  <div class="card">
+    <h1>Would you like to be my Valentine?</h1>
+    <h2>(Carby's attempt to woo his super hot girlfriend)</h2>
+
+    <img
+      src="Mouse1.jpeg"
+      class="valentine-img"
+    />
+
+    <div class="buttons">
+      <button id="yes">Tu Karle Phir</button>
+      <button id="no">Hatt</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+
+    // Lock NO button size permanently
+    const noWidth = noBtn.offsetWidth;
+    const noHeight = noBtn.offsetHeight;
+
+    noBtn.style.width = `${noWidth}px`;
+    noBtn.style.height = `${noHeight}px`;
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = '50%';
+    noBtn.style.top = '50%';
+    noBtn.style.transform = 'translate(-50%, -50%)';
+
+    function moveNoButtonAnywhere() {
+      noBtn.style.transform = 'none';
+
+      const padding = 20;
+      const maxX = window.innerWidth - noWidth - padding;
+      const maxY = window.innerHeight - noHeight - padding;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      const rect = noBtn.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const distance = Math.hypot(
+        e.clientX - centerX,
+        e.clientY - centerY
+      );
+
+      if (distance < 180) {
+        moveNoButtonAnywhere();
+      }
+
+      // ONLY grow the YES button
+      let scale = yesBtn.dataset.scale
+        ? Number(yesBtn.dataset.scale)
+        : 1;
+
+      if (scale < 1.8) {
+        scale += 0.002;
+        yesBtn.dataset.scale = scale;
+        yesBtn.style.transform = `scale(${scale})`;
+      }
+    });
+
+    noBtn.addEventListener('mouseenter', moveNoButtonAnywhere);
+
+    yesBtn.addEventListener('click', () => {
+  document.body.innerHTML = `
+    <div class="choice-page">
+      <h1>So… what should we do? 😏💖</h1>
+
+      <div class="choices">
+        <a href="https://live.staticflickr.com/6068/6065510171_bb00e7222b_z.jpg" target="_blank">
+          <img src="dinner.jpg" alt="Romantic Dinner">
+          <p>Romantic Dinner 🍷</p>
+        </a>
+
+        <a href="https://media.tenor.com/hw5JS3jy6DMAAAAM/cat-cat-meme.gif" target="_blank">
+          <img src="outdoor.jpg" alt="Fun Activity">
+          <p>Fun Outdoor Date 🌿</p>
+        </a>
+
+        <a href="qr.png" target="_blank">
+          <img src="gift.jpg" alt="Surprise???">
+          <p>Surprise </p>
+        </a>
+      </div>
+    </div>
+  `;
+});
+
+  </script>
+</body>
+</html>
